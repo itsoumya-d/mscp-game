@@ -1,0 +1,443 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mockito/mockito.dart';
+import 'package:mockito/annotations.dart';
+
+import '../../lib/core/services/store_compliance_service.dart';
+
+// Generate mocks
+@GenerateMocks([SharedPreferences])
+import 'store_compliance_service_test.mocks.dart';
+
+void main() {
+  group('StoreComplianceService Tests', () {
+    late StoreComplianceService service;
+    late MockSharedPreferences mockPrefs;
+
+    setUp(() {
+      service = StoreComplianceService();
+      mockPrefs = MockSharedPreferences();
+      
+      // Setup default mock responses
+      when(mockPrefs.getBool(any)).thenReturn(false);
+      when(mockPrefs.setBool(any, any)).thenAnswer((_) async => true);
+      when(mockPrefs.setString(any, any)).thenAnswer((_) async => true);
+      when(mockPrefs.getString(any)).thenReturn(null);
+      when(mockPrefs.getKeys()).thenReturn(<String>{});
+      when(mockPrefs.get(any)).thenReturn(null);
+      when(mockPrefs.clear()).thenAnswer((_) async => true);
+    });
+
+    group('Initialization', () {
+      test('should initialize successfully', () async {
+        // Note: In real tests, you'd need to mock PackageInfo and DeviceInfo
+        // For this example, we'll test the logic that can be tested
+        expect(service, isNotNull);
+      });
+    });
+
+    group('Privacy Consent', () {
+      test('should return false for privacy consent by default', () {
+        when(mockPrefs.getBool('privacy_consent_given')).thenReturn(null);
+        
+        // This would need service to use the mock
+        // In a real implementation, you'd inject the SharedPreferences
+        expect(service.hasPrivacyConsent, isFalse);
+      });
+
+      test('should record privacy consent correctly', () async {
+        when(mockPrefs.setBool('privacy_consent_given', true))
+            .thenAnswer((_) async => true);
+
+        // In real implementation, this would use the injected mock
+        await service.recordPrivacyConsent(true);
+
+        verify(mockPrefs.setBool('privacy_consent_given', true)).called(1);
+      });
+
+      test('should record privacy consent denial correctly', () async {
+        when(mockPrefs.setBool('privacy_consent_given', false))
+            .thenAnswer((_) async => true);
+
+        await service.recordPrivacyConsent(false);
+
+        verify(mockPrefs.setBool('privacy_consent_given', false)).called(1);
+      });
+    });
+
+    group('Data Collection Consent', () {
+      test('should return false for data collection consent by default', () {
+        when(mockPrefs.getBool('data_collection_consent')).thenReturn(null);
+        
+        expect(service.hasDataCollectionConsent, isFalse);
+      });
+
+      test('should record data collection consent correctly', () async {
+        when(mockPrefs.setBool('data_collection_consent', true))
+            .thenAnswer((_) async => true);
+
+        await service.recordDataCollectionConsent(true);
+
+        verify(mockPrefs.setBool('data_collection_consent', true)).called(1);
+      });
+    });
+
+    group('Age Verification', () {
+      test('should return false for age verification by default', () {
+        when(mockPrefs.getBool('age_verification_completed')).thenReturn(null);
+        
+        expect(service.isAgeVerified, isFalse);
+      });
+
+      test('should verify age correctly for users 13 and older', () async {
+        when(mockPrefs.setBool('age_verification_completed', true))
+            .thenAnswer((_) async => true);
+
+        await service.recordAgeVerification(15);
+
+        verify(mockPrefs.setBool('age_verification_completed', true)).called(1);
+      });
+
+      test('should not verify age for users under 13 (COPPA compliance)', () async {
+        when(mockPrefs.setBool('age_verification_completed', false))
+            .thenAnswer((_) async => true);
+
+        await service.recordAgeVerification(10);
+
+        verify(mockPrefs.setBool('age_verification_completed', false)).called(1);
+      });
+
+      test('should handle edge case of exactly 13 years old', () async {
+        when(mockPrefs.setBool('age_verification_completed', true))
+            .thenAnswer((_) async => true);
+
+        await service.recordAgeVerification(13);
+
+        verify(mockPrefs.setBool('age_verification_completed', true)).called(1);
+      });
+    });
+
+    group('Overall Compliance', () {
+      test('should return false when no consents are given', () {
+        when(mockPrefs.getBool('privacy_consent_given')).thenReturn(false);
+        when(mockPrefs.getBool('data_collection_consent')).thenReturn(false);
+        when(mockPrefs.getBool('age_verification_completed')).thenReturn(false);
+
+        expect(service.isCompliant, isFalse);
+      });
+
+      test('should return false when only some consents are given', () {
+        when(mockPrefs.getBool('privacy_consent_given')).thenReturn(true);
+        when(mockPrefs.getBool('data_collection_consent')).thenReturn(false);
+        when(mockPrefs.getBool('age_verification_completed')).thenReturn(true);
+
+        expect(service.isCompliant, isFalse);
+      });
+
+      test('should return true when all consents are given', () {
+        when(mockPrefs.getBool('privacy_consent_given')).thenReturn(true);
+        when(mockPrefs.getBool('data_collection_consent')).thenReturn(true);
+        when(mockPrefs.getBool('age_verification_completed')).thenReturn(true);
+
+        expect(service.isCompliant, isTrue);
+      });
+    });
+
+    group('Privacy Policy', () {
+      test('should return default privacy policy when asset not found', () async {
+        final policy = await service.getPrivacyPolicy();
+        
+        expect(policy, isNotEmpty);
+        expect(policy, contains('Privacy Policy'));
+        expect(policy, contains('Information We Collect'));
+        expect(policy, contains('COPPA'));
+      });
+    });
+
+    group('Terms of Service', () {
+      test('should return default terms of service when asset not found', () async {
+        final terms = await service.getTermsOfService();
+        
+        expect(terms, isNotEmpty);
+        expect(terms, contains('Terms of Service'));
+        expect(terms, contains('Acceptance of Terms'));
+        expect(terms, contains('educational purposes'));
+      });
+    });
+
+    group('Data Collection Disclosure', () {
+      test('should provide comprehensive data collection disclosure', () async {
+        final disclosure = await service.getDataCollectionDisclosure();
+        
+        expect(disclosure.personalDataCollected, isNotEmpty);
+        expect(disclosure.purposeOfCollection, isNotEmpty);
+        expect(disclosure.dataSharing, isNotEmpty);
+        expect(disclosure.dataRetention, isNotEmpty);
+        expect(disclosure.userRights, isNotEmpty);
+        
+        // Check for specific required elements
+        expect(disclosure.personalDataCollected, 
+               contains('User progress and performance data'));
+        expect(disclosure.userRights, 
+               contains('Right to delete personal data'));
+      });
+
+      test('should convert disclosure to JSON correctly', () async {
+        final disclosure = await service.getDataCollectionDisclosure();
+        final json = disclosure.toJson();
+        
+        expect(json, containsPair('personal_data_collected', isA<List>()));
+        expect(json, containsPair('purpose_of_collection', isA<List>()));
+        expect(json, containsPair('data_sharing', isA<List>()));
+        expect(json, containsPair('data_retention', isA<String>()));
+        expect(json, containsPair('user_rights', isA<List>()));
+      });
+    });
+
+    group('Content Rating', () {
+      test('should provide appropriate content rating for educational app', () {
+        final rating = service.getContentRating();
+        
+        expect(rating.esrbRating, equals('E for Everyone'));
+        expect(rating.pegiRating, equals('3+'));
+        expect(rating.description, contains('Educational content'));
+        expect(rating.contentDescriptors, contains('Educational content'));
+      });
+
+      test('should convert content rating to JSON correctly', () {
+        final rating = service.getContentRating();
+        final json = rating.toJson();
+        
+        expect(json, containsPair('esrb_rating', 'E for Everyone'));
+        expect(json, containsPair('pegi_rating', '3+'));
+        expect(json, containsPair('description', isA<String>()));
+        expect(json, containsPair('content_descriptors', isA<List>()));
+      });
+    });
+
+    group('Permission Compliance', () {
+      test('should check permission compliance correctly', () async {
+        final compliance = await service.checkPermissionCompliance();
+        
+        expect(compliance.isCompliant, isTrue);
+        expect(compliance.permissions, isNotEmpty);
+        
+        // Check for common permissions
+        expect(compliance.permissions, containsPair('INTERNET', isA<String>()));
+        expect(compliance.permissions, 
+               containsPair('ACCESS_NETWORK_STATE', isA<String>()));
+      });
+
+      test('should provide justification for each permission', () async {
+        final compliance = await service.checkPermissionCompliance();
+        
+        for (final entry in compliance.permissions.entries) {
+          expect(entry.value, isNotEmpty);
+          expect(entry.value, contains(RegExp(r'(Required|Needed|Used)')));
+        }
+      });
+
+      test('should convert permission compliance to JSON correctly', () async {
+        final compliance = await service.checkPermissionCompliance();
+        final json = compliance.toJson();
+        
+        expect(json, containsPair('permissions', isA<Map>()));
+        expect(json, containsPair('is_compliant', isA<bool>()));
+      });
+    });
+
+    group('Store Listing Compliance', () {
+      test('should validate store listing compliance', () async {
+        final compliance = await service.validateStoreListing();
+        
+        expect(compliance, isNotNull);
+        expect(compliance.issues, isA<List<String>>());
+        expect(compliance.warnings, isA<List<String>>());
+      });
+
+      test('should convert store listing compliance to JSON correctly', () async {
+        final compliance = await service.validateStoreListing();
+        final json = compliance.toJson();
+        
+        expect(json, containsPair('is_compliant', isA<bool>()));
+        expect(json, containsPair('issues', isA<List>()));
+        expect(json, containsPair('warnings', isA<List>()));
+      });
+    });
+
+    group('Data Management', () {
+      test('should handle data deletion request', () async {
+        when(mockPrefs.clear()).thenAnswer((_) async => true);
+
+        await service.handleDataDeletionRequest();
+
+        verify(mockPrefs.clear()).called(1);
+      });
+
+      test('should export user data correctly', () async {
+        final testData = {
+          'test_key_1': 'test_value_1',
+          'test_key_2': 42,
+          'test_key_3': true,
+        };
+        
+        when(mockPrefs.getKeys()).thenReturn(testData.keys.toSet());
+        testData.forEach((key, value) {
+          when(mockPrefs.get(key)).thenReturn(value);
+        });
+
+        final exportedData = await service.exportUserData();
+
+        expect(exportedData, containsPair('test_key_1', 'test_value_1'));
+        expect(exportedData, containsPair('test_key_2', 42));
+        expect(exportedData, containsPair('test_key_3', true));
+        expect(exportedData, containsPair('export_timestamp', isA<String>()));
+        expect(exportedData, containsPair('data_format_version', '1.0'));
+      });
+
+      test('should handle empty data export', () async {
+        when(mockPrefs.getKeys()).thenReturn(<String>{});
+
+        final exportedData = await service.exportUserData();
+
+        expect(exportedData, containsPair('export_timestamp', isA<String>()));
+        expect(exportedData, containsPair('data_format_version', '1.0'));
+        expect(exportedData.length, equals(3)); // Only metadata
+      });
+    });
+
+    group('Compliance Versioning', () {
+      test('should check for compliance updates correctly', () async {
+        when(mockPrefs.getString('compliance_version')).thenReturn('0.9.0');
+
+        final hasUpdates = await service.checkForComplianceUpdates();
+
+        expect(hasUpdates, isTrue);
+      });
+
+      test('should not require updates for current version', () async {
+        when(mockPrefs.getString('compliance_version')).thenReturn('1.0.0');
+
+        final hasUpdates = await service.checkForComplianceUpdates();
+
+        expect(hasUpdates, isFalse);
+      });
+
+      test('should update compliance version', () async {
+        when(mockPrefs.setString('compliance_version', '1.0.0'))
+            .thenAnswer((_) async => true);
+
+        await service.updateCompliance();
+
+        verify(mockPrefs.setString('compliance_version', '1.0.0')).called(1);
+      });
+    });
+
+    group('Compliance Report Generation', () {
+      test('should generate comprehensive compliance report', () async {
+        // Setup mock data
+        when(mockPrefs.getBool('privacy_consent_given')).thenReturn(true);
+        when(mockPrefs.getBool('data_collection_consent')).thenReturn(true);
+        when(mockPrefs.getBool('age_verification_completed')).thenReturn(true);
+
+        final report = await service.generateComplianceReport();
+
+        expect(report.appVersion, isNotEmpty);
+        expect(report.complianceVersion, equals('1.0.0'));
+        expect(report.privacyConsent, isTrue);
+        expect(report.dataCollectionConsent, isTrue);
+        expect(report.ageVerified, isTrue);
+        expect(report.isFullyCompliant, isTrue);
+        expect(report.generatedAt, isA<DateTime>());
+      });
+
+      test('should convert compliance report to JSON correctly', () async {
+        when(mockPrefs.getBool('privacy_consent_given')).thenReturn(false);
+        when(mockPrefs.getBool('data_collection_consent')).thenReturn(false);
+        when(mockPrefs.getBool('age_verification_completed')).thenReturn(false);
+
+        final report = await service.generateComplianceReport();
+        final json = report.toJson();
+
+        expect(json, containsPair('app_version', isA<String>()));
+        expect(json, containsPair('compliance_version', '1.0.0'));
+        expect(json, containsPair('privacy_consent', false));
+        expect(json, containsPair('data_collection_consent', false));
+        expect(json, containsPair('age_verified', false));
+        expect(json, containsPair('is_fully_compliant', false));
+        expect(json, containsPair('generated_at', isA<String>()));
+        expect(json, containsPair('permissions', isA<Map>()));
+        expect(json, containsPair('data_disclosure', isA<Map>()));
+        expect(json, containsPair('content_rating', isA<Map>()));
+      });
+    });
+
+    group('Edge Cases and Error Handling', () {
+      test('should handle null values gracefully', () {
+        when(mockPrefs.getBool(any)).thenReturn(null);
+        when(mockPrefs.getString(any)).thenReturn(null);
+
+        expect(service.hasPrivacyConsent, isFalse);
+        expect(service.hasDataCollectionConsent, isFalse);
+        expect(service.isAgeVerified, isFalse);
+        expect(service.isCompliant, isFalse);
+      });
+
+      test('should handle negative age values', () async {
+        when(mockPrefs.setBool('age_verification_completed', false))
+            .thenAnswer((_) async => true);
+
+        await service.recordAgeVerification(-5);
+
+        verify(mockPrefs.setBool('age_verification_completed', false)).called(1);
+      });
+
+      test('should handle very large age values', () async {
+        when(mockPrefs.setBool('age_verification_completed', true))
+            .thenAnswer((_) async => true);
+
+        await service.recordAgeVerification(150);
+
+        verify(mockPrefs.setBool('age_verification_completed', true)).called(1);
+      });
+
+      test('should handle SharedPreferences failures gracefully', () async {
+        when(mockPrefs.setBool(any, any))
+            .thenThrow(Exception('SharedPreferences error'));
+
+        // Should not throw exception
+        expect(() => service.recordPrivacyConsent(true), returnsNormally);
+      });
+    });
+
+    group('Performance Tests', () {
+      test('should handle large data export efficiently', () async {
+        // Create large dataset
+        final largeDataSet = <String>{};
+        for (int i = 0; i < 1000; i++) {
+          largeDataSet.add('key_$i');
+        }
+        
+        when(mockPrefs.getKeys()).thenReturn(largeDataSet);
+        for (final key in largeDataSet) {
+          when(mockPrefs.get(key)).thenReturn('value_$key');
+        }
+
+        final stopwatch = Stopwatch()..start();
+        final exportedData = await service.exportUserData();
+        stopwatch.stop();
+
+        expect(exportedData.length, greaterThan(1000));
+        expect(stopwatch.elapsedMilliseconds, lessThan(1000)); // Should be fast
+      });
+
+      test('should generate compliance report efficiently', () async {
+        final stopwatch = Stopwatch()..start();
+        await service.generateComplianceReport();
+        stopwatch.stop();
+
+        expect(stopwatch.elapsedMilliseconds, lessThan(500)); // Should be fast
+      });
+    });
+  });
+}

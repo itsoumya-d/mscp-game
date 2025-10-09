@@ -1,0 +1,37 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Badge background -->
+  <circle cx="32" cy="32" r="30" fill="url(#fireGradient)" stroke="#D84315" stroke-width="2"/>
+  
+  <defs>
+    <linearGradient id="fireGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF5722;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D84315;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Inner circle -->
+  <circle cx="32" cy="32" r="22" fill="white" opacity="0.9"/>
+  
+  <!-- Fire icon -->
+  <g transform="translate(32, 32)">
+    <!-- Main flame -->
+    <path d="M 0 12 Q -8 8 -6 0 Q -4 -8 0 -12 Q 4 -8 6 0 Q 8 8 0 12" fill="#FF5722"/>
+    <!-- Inner flame -->
+    <path d="M 0 8 Q -4 6 -3 2 Q -2 -2 0 -6 Q 2 -2 3 2 Q 4 6 0 8" fill="#FF9800"/>
+    <!-- Core flame -->
+    <path d="M 0 4 Q -2 3 -1 1 Q 0 -1 0 -3 Q 0 -1 1 1 Q 2 3 0 4" fill="#FFEB3B"/>
+    
+    <!-- Flame sparks -->
+    <circle cx="-8" cy="-4" r="1" fill="#FF9800"/>
+    <circle cx="8" cy="-6" r="0.8" fill="#FF9800"/>
+    <circle cx="-6" cy="6" r="1.2" fill="#FF5722"/>
+    <circle cx="6" cy="8" r="0.9" fill="#FF5722"/>
+    
+    <!-- Streak numbers -->
+    <text x="0" y="18" text-anchor="middle" font-family="Arial" font-size="8" font-weight="bold" fill="#D84315">7</text>
+  </g>
+  
+  <!-- Badge ribbon -->
+  <path d="M 20 50 L 32 45 L 44 50 L 44 60 L 38 57 L 32 60 L 26 57 L 20 60 Z" fill="#4CAF50"/>
+  <path d="M 22 52 L 32 48 L 42 52 L 42 58 L 37 56 L 32 58 L 27 56 L 22 58 Z" fill="#66BB6A"/>
+</svg>

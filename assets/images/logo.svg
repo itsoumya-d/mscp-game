@@ -1,0 +1,56 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="60" cy="60" r="58" fill="url(#gradient1)" stroke="#1565C0" stroke-width="2"/>
+  
+  <!-- Gradient definitions -->
+  <defs>
+    <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2196F3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1565C0;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFEB3B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF9800;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Central sphere/planet -->
+  <circle cx="60" cy="60" r="25" fill="url(#gradient2)" stroke="white" stroke-width="2"/>
+  
+  <!-- Orbital rings -->
+  <ellipse cx="60" cy="60" rx="35" ry="15" fill="none" stroke="white" stroke-width="2" opacity="0.8"/>
+  <ellipse cx="60" cy="60" rx="15" ry="35" fill="none" stroke="white" stroke-width="2" opacity="0.8"/>
+  <ellipse cx="60" cy="60" rx="28" ry="28" fill="none" stroke="white" stroke-width="2" opacity="0.6" transform="rotate(45 60 60)"/>
+  
+  <!-- Knowledge nodes/satellites -->
+  <circle cx="95" cy="60" r="4" fill="#FF5722"/>
+  <circle cx="25" cy="60" r="4" fill="#4CAF50"/>
+  <circle cx="60" cy="25" r="4" fill="#9C27B0"/>
+  <circle cx="60" cy="95" r="4" fill="#FF9800"/>
+  <circle cx="80" cy="40" r="3" fill="#E91E63"/>
+  <circle cx="40" cy="80" r="3" fill="#00BCD4"/>
+  <circle cx="80" cy="80" r="3" fill="#8BC34A"/>
+  <circle cx="40" cy="40" r="3" fill="#FF5722"/>
+  
+  <!-- Central learning symbol -->
+  <g transform="translate(60, 60)">
+    <!-- Book pages -->
+    <path d="M -8 -6 L -8 6 L 0 3 L 8 6 L 8 -6 L 0 -3 Z" fill="white" opacity="0.9"/>
+    <line x1="0" y1="-3" x2="0" y2="3" stroke="#333" stroke-width="1"/>
+    <!-- Graduation cap -->
+    <path d="M -10 -8 L 0 -12 L 10 -8 L 0 -4 Z" fill="#333"/>
+    <rect x="8" y="-10" width="2" height="6" fill="#333"/>
+    <circle cx="10" cy="-10" r="1" fill="#FF5722"/>
+  </g>
+  
+  <!-- App name -->
+  <text x="60" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="white">LearnoSphere</text>
+  
+  <!-- Sparkle effects -->
+  <g opacity="0.7">
+    <path d="M 20 30 L 22 28 L 24 30 L 22 32 Z" fill="white"/>
+    <path d="M 100 20 L 102 18 L 104 20 L 102 22 Z" fill="white"/>
+    <path d="M 15 80 L 17 78 L 19 80 L 17 82 Z" fill="white"/>
+    <path d="M 105 90 L 107 88 L 109 90 L 107 92 Z" fill="white"/>
+  </g>
+</svg>

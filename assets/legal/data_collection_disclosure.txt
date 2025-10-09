@@ -1,0 +1,291 @@
+DATA COLLECTION DISCLOSURE FOR EDUCATIONAL LEARNING APP
+
+Last Updated: December 2024
+
+This disclosure provides detailed information about the data we collect, how we use it, and your rights regarding your personal information.
+
+1. OVERVIEW OF DATA COLLECTION
+
+1.1 Purpose
+We collect data to:
+- Provide personalized educational experiences
+- Track learning progress and performance
+- Improve our educational content and features
+- Ensure app security and functionality
+- Comply with legal requirements
+
+1.2 Data Collection Principles
+- Minimal Data Collection: We only collect data necessary for app functionality
+- Transparency: We clearly explain what data we collect and why
+- User Control: You have control over your data and privacy settings
+- Security: We implement strong security measures to protect your data
+- Legal Compliance: We comply with all applicable privacy laws
+
+2. TYPES OF DATA COLLECTED
+
+2.1 Account Information
+When you create an account, we collect:
+- Username or display name
+- Email address (if provided)
+- Age range or date of birth (for age-appropriate content)
+- Parental consent status (for users under 13)
+- Account creation date
+- Profile preferences and settings
+
+2.2 Educational Progress Data
+To track your learning progress, we collect:
+- Quiz and test scores
+- Time spent on activities
+- Learning paths and subjects accessed
+- Difficulty levels attempted
+- Achievement and milestone data
+- Study session duration and frequency
+- Question response patterns
+- Performance analytics and trends
+
+2.3 Usage Analytics
+To improve our app, we collect:
+- App usage patterns and frequency
+- Feature usage statistics
+- Navigation paths within the app
+- Time spent in different sections
+- Error logs and crash reports
+- Device performance metrics
+- User interaction patterns
+
+2.4 Device Information
+We may collect:
+- Device type and model
+- Operating system version
+- App version
+- Screen resolution and size
+- Device language settings
+- Unique device identifiers (anonymized)
+- Network connection type
+
+2.5 Location Data
+- We do NOT collect precise location data
+- We may collect general region information for content localization
+- Location data collection requires explicit user consent
+
+2.6 Communication Data
+If you contact us, we may collect:
+- Support request details
+- Feedback and suggestions
+- Communication preferences
+- Response history
+
+3. DATA COLLECTION METHODS
+
+3.1 Direct Collection
+- Information you provide when creating an account
+- Data entered during app usage
+- Feedback and support communications
+- Survey responses (if applicable)
+
+3.2 Automatic Collection
+- Usage analytics through app interactions
+- Performance data during app use
+- Error logs and diagnostic information
+- Device information upon app installation
+
+3.3 Third-Party Sources
+- App store information (for downloads and updates)
+- Authentication services (if using social login)
+- Payment processors (for premium features)
+
+4. SPECIAL PROTECTIONS FOR CHILDREN
+
+4.1 COPPA Compliance
+For users under 13 years of age:
+- Parental consent is required before data collection
+- We collect minimal information necessary for app functionality
+- Parents can review, modify, or delete their child's information
+- We do not share children's data with third parties for marketing
+
+4.2 Enhanced Privacy Measures
+- Stricter data minimization practices
+- Additional security safeguards
+- Regular review of data collection practices
+- Clear parental controls and oversight options
+
+5. DATA USAGE PURPOSES
+
+5.1 Primary Uses
+- Providing educational content and features
+- Personalizing learning experiences
+- Tracking progress and performance
+- Generating achievement reports
+- Maintaining account security
+
+5.2 Secondary Uses
+- Improving app functionality and user experience
+- Developing new educational content
+- Analyzing usage patterns for optimization
+- Ensuring technical performance and reliability
+- Complying with legal obligations
+
+5.3 Marketing and Communications
+- We do NOT use personal data for targeted advertising
+- We may send educational content recommendations
+- All communications can be opted out of
+- We respect user communication preferences
+
+6. DATA SHARING AND DISCLOSURE
+
+6.1 No Sale of Personal Data
+We do NOT sell, rent, or trade personal information to third parties.
+
+6.2 Limited Sharing Scenarios
+We may share data only in these circumstances:
+- With parental consent (for children under 13)
+- To comply with legal requirements
+- To protect user safety and security
+- With service providers under strict confidentiality agreements
+- In case of business transfer (with user notification)
+
+6.3 Service Providers
+We may share data with trusted service providers for:
+- Cloud storage and data processing
+- Analytics and performance monitoring
+- Customer support services
+- Payment processing (for premium features)
+
+All service providers are contractually bound to protect your data and use it only for specified purposes.
+
+7. DATA RETENTION
+
+7.1 Retention Periods
+- Account data: Retained while account is active
+- Progress data: Retained for educational continuity
+- Usage analytics: Aggregated and anonymized after 2 years
+- Support communications: Retained for 3 years
+- Deleted account data: Permanently deleted within 30 days
+
+7.2 Data Deletion
+You can request deletion of your data at any time through:
+- App settings
+- Email request to privacy@educationalapp.com
+- Parental request (for children's accounts)
+
+8. DATA SECURITY MEASURES
+
+8.1 Technical Safeguards
+- Encryption of data in transit and at rest
+- Secure authentication systems
+- Regular security audits and updates
+- Access controls and monitoring
+- Secure data centers and infrastructure
+
+8.2 Organizational Safeguards
+- Employee training on data protection
+- Strict access controls and need-to-know basis
+- Regular privacy and security assessments
+- Incident response procedures
+- Vendor security requirements
+
+9. YOUR RIGHTS AND CHOICES
+
+9.1 Access Rights
+You have the right to:
+- Access your personal data
+- Review data collection practices
+- Understand how your data is used
+- Request copies of your data
+
+9.2 Control Rights
+You can:
+- Update or correct your information
+- Delete your account and data
+- Opt out of certain data collection
+- Adjust privacy settings
+- Withdraw consent (where applicable)
+
+9.3 Parental Rights (for children under 13)
+Parents can:
+- Review their child's information
+- Request deletion of child's data
+- Refuse further data collection
+- Contact us with privacy concerns
+
+10. INTERNATIONAL DATA TRANSFERS
+
+10.1 Cross-Border Processing
+Your data may be processed in countries other than your residence for:
+- Cloud storage and processing
+- Technical support and maintenance
+- Service provider operations
+
+10.2 Safeguards
+We ensure adequate protection through:
+- Standard contractual clauses
+- Adequacy decisions
+- Certification schemes
+- Binding corporate rules
+
+11. COOKIES AND TRACKING TECHNOLOGIES
+
+11.1 Types of Technologies Used
+- Essential cookies for app functionality
+- Analytics cookies for usage insights
+- Preference cookies for user settings
+- Security cookies for protection
+
+11.2 Cookie Management
+You can control cookies through:
+- App settings
+- Device browser settings
+- Third-party opt-out tools
+
+12. CHANGES TO DATA PRACTICES
+
+12.1 Notification of Changes
+We will notify you of material changes through:
+- In-app notifications
+- Email notifications (if applicable)
+- Updates to this disclosure
+- App store update notes
+
+12.2 Consent for Changes
+Significant changes to data collection practices will require:
+- User consent for new data types
+- Parental consent for children's data
+- Clear explanation of changes
+- Option to decline new practices
+
+13. CONTACT INFORMATION
+
+13.1 Privacy Questions
+For questions about data collection or privacy:
+Email: privacy@educationalapp.com
+Subject: Data Collection Inquiry
+
+13.2 Data Requests
+To request access, correction, or deletion of your data:
+Email: datarequests@educationalapp.com
+Subject: Data Request - [Type of Request]
+
+13.3 Parental Inquiries
+For questions about children's data:
+Email: parents@educationalapp.com
+Subject: Child Privacy Inquiry
+
+14. REGULATORY COMPLIANCE
+
+14.1 Applicable Laws
+We comply with:
+- Children's Online Privacy Protection Act (COPPA)
+- General Data Protection Regulation (GDPR)
+- California Consumer Privacy Act (CCPA)
+- Family Educational Rights and Privacy Act (FERPA)
+- Other applicable privacy laws
+
+14.2 Regulatory Contacts
+For regulatory compliance questions:
+Email: compliance@educationalapp.com
+
+15. EFFECTIVE DATE
+
+This Data Collection Disclosure is effective as of December 2024 and was last updated on December 2024.
+
+By using our Educational Learning App, you acknowledge that you have read and understood this Data Collection Disclosure and consent to the data practices described herein.

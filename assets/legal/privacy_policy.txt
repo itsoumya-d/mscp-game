@@ -1,0 +1,209 @@
+PRIVACY POLICY FOR EDUCATIONAL LEARNING APP
+
+Last Updated: December 2024
+
+1. INTRODUCTION
+
+Welcome to our Educational Learning App ("we," "our," or "us"). We are committed to protecting your privacy and ensuring transparency about how we collect, use, and protect your information. This Privacy Policy explains our practices regarding the collection, use, and disclosure of information when you use our educational application.
+
+2. INFORMATION WE COLLECT
+
+2.1 Personal Information
+- Account information (username, email address if provided)
+- Educational progress and performance data
+- Game session statistics and achievements
+- User preferences and settings
+
+2.2 Automatically Collected Information
+- Device information (device type, operating system, app version)
+- Usage analytics (features used, time spent, interaction patterns)
+- Technical data (crash reports, error logs, performance metrics)
+- Network information (IP address, connection type)
+
+2.3 Information from Third Parties
+We do not collect personal information from third parties without your explicit consent.
+
+3. HOW WE USE YOUR INFORMATION
+
+We use the collected information for the following purposes:
+
+3.1 Educational Services
+- Provide personalized learning experiences
+- Track and display educational progress
+- Generate performance reports and recommendations
+- Adapt difficulty levels based on performance
+
+3.2 App Improvement
+- Analyze usage patterns to improve features
+- Fix bugs and technical issues
+- Develop new educational content
+- Enhance user experience
+
+3.3 Communication
+- Send important app updates and notifications
+- Provide customer support
+- Respond to user inquiries and feedback
+
+4. INFORMATION SHARING AND DISCLOSURE
+
+4.1 We Do Not Sell Personal Information
+We do not sell, rent, or trade your personal information to third parties for commercial purposes.
+
+4.2 Service Providers
+We may share information with trusted service providers who assist us in:
+- App analytics and performance monitoring
+- Cloud storage and data backup
+- Customer support services
+- Technical infrastructure maintenance
+
+4.3 Legal Requirements
+We may disclose information if required by law or to:
+- Comply with legal processes or government requests
+- Protect our rights, property, or safety
+- Prevent fraud or security threats
+- Enforce our Terms of Service
+
+4.4 Business Transfers
+In the event of a merger, acquisition, or sale of assets, user information may be transferred as part of the transaction.
+
+5. CHILDREN'S PRIVACY (COPPA COMPLIANCE)
+
+5.1 Age Restrictions
+Our app is designed for educational use by children and complies with the Children's Online Privacy Protection Act (COPPA).
+
+5.2 Parental Consent
+For users under 13 years of age:
+- We obtain verifiable parental consent before collecting personal information
+- Parents can review, modify, or delete their child's information
+- Parents can refuse further collection or use of their child's information
+
+5.3 Limited Data Collection
+For children under 13, we only collect information necessary for the educational functionality of the app.
+
+6. DATA SECURITY
+
+6.1 Security Measures
+We implement appropriate technical and organizational measures to protect your information:
+- Encryption of data in transit and at rest
+- Regular security assessments and updates
+- Access controls and authentication systems
+- Secure data storage and backup procedures
+
+6.2 Data Breach Response
+In the event of a data breach, we will:
+- Notify affected users within 72 hours
+- Report to relevant authorities as required by law
+- Take immediate steps to secure the breach
+- Provide guidance on protective measures
+
+7. YOUR RIGHTS AND CHOICES
+
+7.1 Access and Control
+You have the right to:
+- Access your personal information
+- Correct inaccurate information
+- Delete your personal information
+- Export your data in a portable format
+- Withdraw consent for data processing
+
+7.2 Communication Preferences
+You can:
+- Opt out of non-essential communications
+- Adjust notification settings
+- Control data sharing preferences
+
+7.3 Account Deletion
+You can delete your account at any time, which will:
+- Remove your personal information from our systems
+- Delete your progress and achievement data
+- Cancel any active subscriptions or services
+
+8. DATA RETENTION
+
+8.1 Retention Period
+We retain your information for as long as:
+- Your account remains active
+- Necessary to provide our services
+- Required by law or for legitimate business purposes
+
+8.2 Deletion Timeline
+After account deletion or service termination:
+- Personal information is deleted within 30 days
+- Backup copies are removed within 90 days
+- Anonymous analytics data may be retained for research purposes
+
+9. INTERNATIONAL DATA TRANSFERS
+
+9.1 Cross-Border Transfers
+Your information may be transferred to and processed in countries other than your own. We ensure adequate protection through:
+- Standard contractual clauses
+- Adequacy decisions by relevant authorities
+- Other appropriate safeguards as required by law
+
+10. COOKIES AND TRACKING TECHNOLOGIES
+
+10.1 Use of Cookies
+We use cookies and similar technologies to:
+- Remember your preferences and settings
+- Analyze app usage and performance
+- Provide personalized content and features
+
+10.2 Cookie Control
+You can control cookies through your device settings, though this may affect app functionality.
+
+11. THIRD-PARTY SERVICES
+
+11.1 Integration Services
+Our app may integrate with third-party educational services or platforms. These services have their own privacy policies, and we encourage you to review them.
+
+11.2 Analytics Services
+We use third-party analytics services to understand app usage. These services may collect information about your use of our app and other applications.
+
+12. UPDATES TO THIS PRIVACY POLICY
+
+12.1 Policy Changes
+We may update this Privacy Policy from time to time. We will:
+- Notify users of material changes
+- Post the updated policy in the app
+- Obtain consent for significant changes affecting data processing
+
+12.2 Continued Use
+Your continued use of the app after policy updates constitutes acceptance of the new terms.
+
+13. CONTACT INFORMATION
+
+13.1 Privacy Questions
+If you have questions about this Privacy Policy or our privacy practices, please contact us:
+
+Email: privacy@educationalapp.com
+Address: [Your Company Address]
+Phone: [Your Contact Number]
+
+13.2 Data Protection Officer
+For users in the European Union, you can contact our Data Protection Officer:
+Email: dpo@educationalapp.com
+
+14. JURISDICTION-SPECIFIC RIGHTS
+
+14.1 California Residents (CCPA)
+California residents have additional rights under the California Consumer Privacy Act:
+- Right to know what personal information is collected
+- Right to delete personal information
+- Right to opt-out of the sale of personal information
+- Right to non-discrimination for exercising privacy rights
+
+14.2 European Union Residents (GDPR)
+EU residents have rights under the General Data Protection Regulation:
+- Right to access personal data
+- Right to rectification of inaccurate data
+- Right to erasure ("right to be forgotten")
+- Right to restrict processing
+- Right to data portability
+- Right to object to processing
+- Right to withdraw consent
+
+15. EFFECTIVE DATE
+
+This Privacy Policy is effective as of December 2024 and was last updated on December 2024.
+
+By using our Educational Learning App, you acknowledge that you have read and understood this Privacy Policy and agree to the collection, use, and disclosure of your information as described herein.

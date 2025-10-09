@@ -1,0 +1,92 @@
+name: sp
+description: "Dive into LearnoSphere, a vibrant, gamified learning app that transforms STEM education with bite-sized, Duolingo-style lessons and an engaging 3D orange-themed universe, making science and math mastery fun and accessible on any device"
+publish_to: "none"
+version: 1.0.0
+
+environment:
+  sdk: ^3.6.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  google_fonts: ^6.2.1
+  flutter_riverpod: ^3.0.0
+  riverpod: ^3.0.0
+  sqflite: ^2.4.1
+  sqflite_common_ffi: ^2.3.3
+  shared_preferences: ^2.3.3
+  lottie: ^3.2.0
+  http: ^1.2.2
+  uuid: ^4.5.1
+  flutter_svg: ^2.0.10
+  provider: ^6.1.2
+
+  package_info_plus: ^9.0.0
+  device_info_plus: ^12.1.0
+  path: ^1.9.0
+  # Firebase dependencies
+  firebase_core: ^3.6.0
+  firebase_auth: ^5.3.1
+  cloud_firestore: ^5.4.3
+  firebase_storage: ^12.3.2
+  firebase_analytics: ^11.3.3
+  firebase_crashlytics: ^4.1.3
+  connectivity_plus: ^6.0.5
+  sentry_flutter: ^8.9.0
+  # flutter_tts: ^4.2.3  # Temporarily commented out due to CMake build issues
+  pdf: ^3.10.8
+  fl_chart: ^0.68.0
+  # Game engine and interactive elements
+  flame: ^1.19.0
+  flame_audio: ^2.1.7
+  audioplayers: ^6.1.0
+  # Additional animation and effects
+  flutter_animate: ^4.5.0
+  # rive: ^0.13.13  # Temporarily commented out due to ClangCL build tools issue on Windows
+  introduction_screen: ^4.0.0
+  showcaseview: ^4.0.1
+  confetti: ^0.8.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.4
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    # Icons
+    - assets/icons/
+    
+    # Subject icons
+    - assets/subjects/
+    
+    # Images
+    - assets/images/
+    
+    # Animations
+    - assets/animations/
+    
+    # Achievement badges
+    - assets/achievements/
+    
+    # Illustrations
+    - assets/illustrations/
+    
+    # Legal documents
+    - assets/legal/
+    
+    # Fonts (if any custom fonts are added)
+    - assets/fonts/
+    
+    # Sounds (for future use)
+    - assets/sounds/
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: assets/icons/studypal_icon.jpg
+  remove_alpha_ios: true

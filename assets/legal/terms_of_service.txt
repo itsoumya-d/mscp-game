@@ -1,0 +1,234 @@
+TERMS OF SERVICE FOR EDUCATIONAL LEARNING APP
+
+Last Updated: December 2024
+
+1. ACCEPTANCE OF TERMS
+
+By downloading, installing, or using our Educational Learning App ("the App," "our App," or "Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, please do not use our App.
+
+2. DESCRIPTION OF SERVICE
+
+2.1 Educational Platform
+Our App is an educational platform designed to provide interactive learning experiences across multiple subjects including Mathematics, Science, English, History, Geography, Art, and Music.
+
+2.2 Features
+The App includes:
+- Interactive educational content and quizzes
+- Progress tracking and performance analytics
+- Personalized learning recommendations
+- Achievement systems and rewards
+- Educational games and activities
+
+2.3 Age Appropriateness
+The App is designed for educational use and is appropriate for users of all ages, with special compliance measures for users under 13 years of age.
+
+3. USER ACCOUNTS AND REGISTRATION
+
+3.1 Account Creation
+To access certain features, you may need to create an account. You agree to:
+- Provide accurate and complete information
+- Maintain the security of your account credentials
+- Notify us immediately of any unauthorized use
+- Accept responsibility for all activities under your account
+
+3.2 Parental Consent
+For users under 13 years of age, parental consent is required before creating an account or using certain features of the App.
+
+3.3 Account Termination
+We reserve the right to suspend or terminate accounts that violate these Terms or engage in inappropriate behavior.
+
+4. ACCEPTABLE USE POLICY
+
+4.1 Permitted Uses
+You may use the App for:
+- Educational and learning purposes
+- Personal skill development
+- Legitimate academic activities
+- Age-appropriate entertainment
+
+4.2 Prohibited Uses
+You agree NOT to:
+- Use the App for any unlawful purposes
+- Attempt to hack, reverse engineer, or compromise the App
+- Share inappropriate content or engage in cyberbullying
+- Violate the rights of other users
+- Circumvent security measures or access restrictions
+- Use automated systems to access the App without permission
+- Interfere with the proper functioning of the App
+
+4.3 Content Standards
+Any user-generated content must:
+- Be appropriate for all ages
+- Not contain offensive, harmful, or inappropriate material
+- Respect intellectual property rights
+- Comply with applicable laws and regulations
+
+5. INTELLECTUAL PROPERTY RIGHTS
+
+5.1 Our Content
+All content in the App, including but not limited to:
+- Educational materials and curricula
+- Graphics, images, and multimedia content
+- Software code and algorithms
+- Trademarks and logos
+- Audio and video content
+is owned by us or our licensors and is protected by copyright, trademark, and other intellectual property laws.
+
+5.2 User Content
+By submitting content to the App, you grant us a non-exclusive, worldwide, royalty-free license to use, modify, and display such content for the purpose of providing and improving our services.
+
+5.3 Respect for Third-Party Rights
+You agree to respect the intellectual property rights of others and not to infringe upon copyrights, trademarks, or other proprietary rights.
+
+6. PRIVACY AND DATA PROTECTION
+
+6.1 Privacy Policy
+Your privacy is important to us. Please review our Privacy Policy, which explains how we collect, use, and protect your information.
+
+6.2 Data Collection
+By using the App, you consent to the collection and use of information as described in our Privacy Policy.
+
+6.3 Children's Privacy
+We comply with applicable children's privacy laws, including COPPA, and take special measures to protect the privacy of users under 13 years of age.
+
+7. SUBSCRIPTION AND PAYMENT TERMS
+
+7.1 Free and Premium Features
+The App may offer both free and premium features. Premium features may require a subscription or one-time purchase.
+
+7.2 Payment Processing
+Payments are processed through the respective app stores (Google Play Store, Apple App Store) and are subject to their terms and conditions.
+
+7.3 Refunds
+Refund policies are governed by the app store's refund policies. We do not process direct refunds.
+
+7.4 Auto-Renewal
+Subscriptions may automatically renew unless cancelled before the renewal date. You can manage subscriptions through your app store account settings.
+
+8. DISCLAIMERS AND LIMITATIONS OF LIABILITY
+
+8.1 Educational Disclaimer
+While our App is designed to support learning, it should not be considered a replacement for formal education or professional instruction.
+
+8.2 Service Availability
+We strive to maintain continuous service availability but do not guarantee uninterrupted access. The App may be temporarily unavailable due to maintenance, updates, or technical issues.
+
+8.3 Limitation of Liability
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, WE SHALL NOT BE LIABLE FOR:
+- Indirect, incidental, special, or consequential damages
+- Loss of data, profits, or business opportunities
+- Damages resulting from service interruptions
+- Third-party actions or content
+
+8.4 Maximum Liability
+Our total liability for any claims related to the App shall not exceed the amount paid by you for the App in the 12 months preceding the claim.
+
+9. INDEMNIFICATION
+
+You agree to indemnify and hold us harmless from any claims, damages, losses, or expenses arising from:
+- Your use of the App
+- Your violation of these Terms
+- Your infringement of third-party rights
+- Your user-generated content
+
+10. MODIFICATIONS TO TERMS
+
+10.1 Right to Modify
+We reserve the right to modify these Terms at any time. We will notify users of material changes through:
+- In-app notifications
+- Email notifications (if applicable)
+- Updates to this document
+
+10.2 Acceptance of Changes
+Your continued use of the App after changes to these Terms constitutes acceptance of the new terms.
+
+11. TERMINATION
+
+11.1 Termination by You
+You may stop using the App at any time and delete your account through the App settings.
+
+11.2 Termination by Us
+We may terminate or suspend your access to the App if you:
+- Violate these Terms
+- Engage in inappropriate behavior
+- Fail to comply with applicable laws
+- Pose a security risk to other users
+
+11.3 Effect of Termination
+Upon termination:
+- Your access to the App will be revoked
+- Your account data may be deleted
+- These Terms will continue to apply to past use
+
+12. GOVERNING LAW AND DISPUTE RESOLUTION
+
+12.1 Governing Law
+These Terms are governed by the laws of [Your Jurisdiction], without regard to conflict of law principles.
+
+12.2 Dispute Resolution
+Any disputes arising from these Terms or the use of the App shall be resolved through:
+- Good faith negotiations
+- Mediation (if negotiations fail)
+- Binding arbitration (if mediation fails)
+
+12.3 Class Action Waiver
+You agree to resolve disputes individually and waive the right to participate in class action lawsuits.
+
+13. ACCESSIBILITY
+
+13.1 Accessibility Commitment
+We are committed to making our App accessible to users with disabilities and strive to comply with applicable accessibility standards.
+
+13.2 Accessibility Features
+The App includes features to support users with various needs, including:
+- Screen reader compatibility
+- Adjustable text sizes
+- High contrast options
+- Keyboard navigation support
+
+14. INTERNATIONAL USE
+
+14.1 Global Availability
+The App may be available in multiple countries, but content and features may vary by region.
+
+14.2 Local Laws
+Users are responsible for complying with local laws and regulations in their jurisdiction.
+
+15. CONTACT INFORMATION
+
+15.1 General Inquiries
+For questions about these Terms or the App, please contact us:
+
+Email: support@educationalapp.com
+Address: [Your Company Address]
+Phone: [Your Contact Number]
+
+15.2 Legal Notices
+For legal notices or formal communications:
+Email: legal@educationalapp.com
+
+16. SEVERABILITY
+
+If any provision of these Terms is found to be unenforceable or invalid, the remaining provisions will continue to be valid and enforceable.
+
+17. ENTIRE AGREEMENT
+
+These Terms, together with our Privacy Policy, constitute the entire agreement between you and us regarding the use of the App.
+
+18. FORCE MAJEURE
+
+We shall not be liable for any failure to perform our obligations under these Terms due to circumstances beyond our reasonable control, including but not limited to natural disasters, government actions, or technical failures.
+
+19. ASSIGNMENT
+
+We may assign these Terms or our rights and obligations hereunder without your consent. You may not assign these Terms without our prior written consent.
+
+20. WAIVER
+
+Our failure to enforce any provision of these Terms shall not constitute a waiver of that provision or any other provision.
+
+21. EFFECTIVE DATE
+
+These Terms of Service are effective as of December 2024 and were last updated on December 2024.
+
+By using our Educational Learning App, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.

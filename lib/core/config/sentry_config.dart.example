@@ -1,0 +1,29 @@
+/// Sentry Configuration
+/// 
+/// To use this file:
+/// 1. Copy this file to `sentry_config.dart` (remove .example)
+/// 2. Get your DSN from https://sentry.io/settings/projects/
+/// 3. Replace 'YOUR_SENTRY_DSN_HERE' with your actual DSN
+/// 4. Add `lib/core/config/sentry_config.dart` to .gitignore
+/// 
+/// Example DSN format:
+/// https://1234567890abcdef@o123456.ingest.sentry.io/1234567
+
+class SentryConfig {
+  /// Your Sentry DSN
+  /// Get it from: https://sentry.io/settings/projects/
+  static const String dsn = 'YOUR_SENTRY_DSN_HERE';
+  
+  /// Set to true to enable Sentry error tracking
+  /// Set to false to disable (useful for development)
+  static const bool enabled = true;
+  
+  /// Environment name (development, staging, production)
+  static const String environment = 'production';
+  
+  /// Sample rate for performance monitoring (0.0 to 1.0)
+  /// 1.0 = 100% of transactions are sent
+  /// 0.1 = 10% of transactions are sent
+  static const double tracesSampleRate = 1.0;
+}
+

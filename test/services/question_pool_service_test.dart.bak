@@ -1,0 +1,393 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../lib/core/models/subject.dart';
+import '../../lib/core/models/question_pool.dart';
+import '../../lib/core/services/question_pool_service.dart';
+
+void main() {
+  group('QuestionPoolService Tests', () {
+    late QuestionPoolService service;
+
+    setUp(() async {
+      // Initialize SharedPreferences with mock values
+      SharedPreferences.setMockInitialValues({});
+      service = QuestionPoolService();
+      await service.initialize();
+    });
+
+    group('Initialization Tests', () {
+      test('should initialize successfully', () async {
+        expect(service, isNotNull);
+        
+        // Verify that default pools are created for all subjects
+        for (final subject in SubjectType.values) {
+          final poolManager = service.getPoolManager(subject);
+          expect(poolManager, isNotNull);
+          expect(poolManager!.pools.isNotEmpty, true);
+        }
+      });
+
+      test('should create default pools for all subjects and skills', () async {
+        for (final subject in SubjectType.values) {
+          final poolManager = service.getPoolManager(subject);
+          expect(poolManager, isNotNull);
+          
+          // Check that pools exist for different skill levels
+          final skillIds = ['basic', 'intermediate', 'advanced'];
+          for (final skillId in skillIds) {
+            final pools = poolManager!.getPoolsForSkill(skillId);
+            expect(pools.isNotEmpty, true, 
+                reason: 'No pools found for $subject - $skillId');
+          }
+        }
+      });
+    });
+
+    group('Question Generation Tests', () {
+      test('should generate questions from pools', () async {
+        final questions = await service.generateQuestionsFromPools(
+          subject: SubjectType.math,
+          skillId: 'basic',
+          categories: [QuestionCategory.conceptual],
+          count: 5,
+        );
+
+        expect(questions.length, equals(5));
+        for (final question in questions) {
+          expect(question.subject, equals(SubjectType.math));
+          expect(question.skillId, equals('basic'));
+          expect(question.category, equals(QuestionCategory.conceptual));
+        }
+      });
+
+      test('should respect anti-repetition mechanism', () async {
+        // Generate questions multiple times
+        final firstBatch = await service.generateQuestionsFromPools(
+          subject: SubjectType.math,
+          skillId: 'basic',
+          categories: [QuestionCategory.computational],
+          count: 3,
+        );
+
+        final secondBatch = await service.generateQuestionsFromPools(
+          subject: SubjectType.math,
+          skillId: 'basic',
+          categories: [QuestionCategory.computational],
+          count: 3,
+        );
+
+        // Check that questions are different (anti-repetition)
+        final firstIds = firstBatch.map((q) => q.id).toSet();
+        final secondIds = secondBatch.map((q) => q.id).toSet();
+        
+        // Should have minimal overlap (allowing for some repetition when pool is small)
+        final overlap = firstIds.intersection(secondIds);
+        expect(overlap.length, lessThan(firstBatch.length), 
+            reason: 'Too much repetition in generated questions');
+      });
+
+      test('should handle multiple categories', () async {
+        final questions = await service.generateQuestionsFromPools(
+          subject: SubjectType.physics,
+          skillId: 'intermediate',
+          categories: [
+            QuestionCategory.conceptual,
+            QuestionCategory.analytical,
+            QuestionCategory.computational
+          ],
+          count: 9,
+        );
+
+        expect(questions.length, equals(9));
+        
+        // Check that questions are distributed across categories
+        final categoryCounts = <QuestionCategory, int>{};
+        for (final question in questions) {
+          categoryCounts[question.category] = 
+              (categoryCounts[question.category] ?? 0) + 1;
+        }
+        
+        expect(categoryCounts.keys.length, greaterThan(1), 
+            reason: 'Questions should be distributed across multiple categories');
+      });
+
+      test('should handle empty pools gracefully', () async {
+        // Try to generate questions for a non-existent skill
+        final questions = await service.generateQuestionsFromPools(
+          subject: SubjectType.math,
+          skillId: 'non_existent_skill',
+          categories: [QuestionCategory.creative],
+          count: 5,
+        );
+
+        // Should return empty list or handle gracefully
+        expect(questions, isNotNull);
+      });
+    });
+
+    group('Pool Management Tests', () {
+      test('should save and load pool managers', () async {
+        // Modify a pool manager
+        final originalManager = service.getPoolManager(SubjectType.math);
+        expect(originalManager, isNotNull);
+
+        // Add a custom pool
+        final customPool = QuestionPool(
+          id: 'custom_test_pool',
+          category: QuestionCategory.creative,
+          skillId: 'test_skill',
+          templates: [
+            QuestionTemplate(
+              id: 'template_1',
+              baseQuestion: 'Test question {variable}',
+              variables: {'variable': ['A', 'B', 'C']},
+              correctAnswerPattern: 'Test answer {variable}',
+              category: QuestionCategory.creative,
+              difficulty: 3.0,
+            ),
+          ],
+          usageHistory: [],
+          lastUsed: DateTime.now(),
+        );
+
+        originalManager!.addPool(customPool);
+        
+        // Save the manager
+        await service.savePoolManager(SubjectType.math, originalManager);
+        
+        // Create a new service instance and load
+        final newService = QuestionPoolService();
+        await newService.initialize();
+        
+        final loadedManager = newService.getPoolManager(SubjectType.math);
+        expect(loadedManager, isNotNull);
+        
+        // Check if custom pool was saved and loaded
+        final loadedPool = loadedManager!.pools
+            .firstWhere((p) => p.id == 'custom_test_pool', orElse: () => throw StateError('Pool not found'));
+        expect(loadedPool.id, equals('custom_test_pool'));
+      });
+
+      test('should track question usage history', () async {
+        final questions = await service.generateQuestionsFromPools(
+          subject: SubjectType.chemistry,
+          skillId: 'basic',
+          categories: [QuestionCategory.factual],
+          count: 2,
+        );
+
+        expect(questions.length, equals(2));
+
+        // Check that usage history is updated
+        final poolManager = service.getPoolManager(SubjectType.chemistry);
+        expect(poolManager, isNotNull);
+
+        final pools = poolManager!.getPoolsForSkill('basic');
+        expect(pools.isNotEmpty, true);
+
+        // At least one pool should have usage history
+        final hasUsageHistory = pools.any((pool) => pool.usageHistory.isNotEmpty);
+        expect(hasUsageHistory, true, 
+            reason: 'Usage history should be tracked after question generation');
+      });
+    });
+
+    group('Question Template Tests', () {
+      test('should generate questions from templates with variables', () {
+        final template = QuestionTemplate(
+          id: 'test_template',
+          baseQuestion: 'What is {number1} + {number2}?',
+          variables: {
+            'number1': ['1', '2', '3', '4', '5'],
+            'number2': ['6', '7', '8', '9', '10'],
+          },
+          correctAnswerPattern: '{sum}',
+          category: QuestionCategory.computational,
+          difficulty: 2.0,
+        );
+
+        final question = template.generateQuestion();
+        
+        expect(question.questionText, isNotNull);
+        expect(question.questionText, contains('What is'));
+        expect(question.questionText, contains('+'));
+        expect(question.questionText, contains('?'));
+        
+        // Should not contain variable placeholders
+        expect(question.questionText, isNot(contains('{')));
+        expect(question.questionText, isNot(contains('}')));
+      });
+
+      test('should generate different questions from same template', () {
+        final template = QuestionTemplate(
+          id: 'variable_template',
+          baseQuestion: 'Calculate {operation} of {value1} and {value2}',
+          variables: {
+            'operation': ['sum', 'product', 'difference'],
+            'value1': ['10', '20', '30'],
+            'value2': ['5', '15', '25'],
+          },
+          correctAnswerPattern: 'Result: {result}',
+          category: QuestionCategory.computational,
+          difficulty: 2.5,
+        );
+
+        final question1 = template.generateQuestion();
+        final question2 = template.generateQuestion();
+        final question3 = template.generateQuestion();
+
+        // Questions should be different (high probability with multiple variables)
+        final questions = [question1.questionText, question2.questionText, question3.questionText];
+        final uniqueQuestions = questions.toSet();
+        
+        expect(uniqueQuestions.length, greaterThan(1), 
+            reason: 'Template should generate different questions');
+      });
+    });
+
+    group('Category Distribution Tests', () {
+      test('should distribute questions evenly across requested categories', () async {
+        final categories = [
+          QuestionCategory.conceptual,
+          QuestionCategory.computational,
+          QuestionCategory.analytical,
+        ];
+
+        final questions = await service.generateQuestionsFromPools(
+          subject: SubjectType.math,
+          skillId: 'intermediate',
+          categories: categories,
+          count: 12, // Divisible by 3 for even distribution
+        );
+
+        expect(questions.length, equals(12));
+
+        // Count questions per category
+        final categoryCounts = <QuestionCategory, int>{};
+        for (final question in questions) {
+          categoryCounts[question.category] = 
+              (categoryCounts[question.category] ?? 0) + 1;
+        }
+
+        // Each category should have questions (allowing for some variation)
+        for (final category in categories) {
+          expect(categoryCounts[category], greaterThan(0), 
+              reason: 'Category $category should have at least one question');
+        }
+      });
+    });
+
+    group('Performance Tests', () {
+      test('should generate questions efficiently', () async {
+        final stopwatch = Stopwatch()..start();
+        
+        final questions = await service.generateQuestionsFromPools(
+          subject: SubjectType.physics,
+          skillId: 'advanced',
+          categories: QuestionCategory.values,
+          count: 50,
+        );
+        
+        stopwatch.stop();
+        
+        expect(questions.length, equals(50));
+        expect(stopwatch.elapsedMilliseconds, lessThan(1000), 
+            reason: 'Question generation should be fast');
+      });
+
+      test('should handle large batch generation', () async {
+        final questions = await service.generateQuestionsFromPools(
+          subject: SubjectType.biology,
+          skillId: 'basic',
+          categories: [QuestionCategory.factual, QuestionCategory.conceptual],
+          count: 100,
+        );
+
+        expect(questions.length, equals(100));
+        
+        // Check for reasonable distribution
+        final categories = questions.map((q) => q.category).toSet();
+        expect(categories.length, greaterThan(0));
+      });
+    });
+
+    group('Error Handling Tests', () {
+      test('should handle invalid subject gracefully', () async {
+        // This test assumes the service handles invalid enum values gracefully
+        // In practice, this would be caught at compile time with proper typing
+        expect(() => service.getPoolManager(SubjectType.values.first), 
+            returnsNormally);
+      });
+
+      test('should handle zero count request', () async {
+        final questions = await service.generateQuestionsFromPools(
+          subject: SubjectType.math,
+          skillId: 'basic',
+          categories: [QuestionCategory.computational],
+          count: 0,
+        );
+
+        expect(questions, isEmpty);
+      });
+
+      test('should handle empty categories list', () async {
+        final questions = await service.generateQuestionsFromPools(
+          subject: SubjectType.math,
+          skillId: 'basic',
+          categories: [],
+          count: 5,
+        );
+
+        // Should either return empty list or handle gracefully
+        expect(questions, isNotNull);
+      });
+    });
+
+    group('Integration Tests', () {
+      test('should work with all subjects and categories', () async {
+        for (final subject in SubjectType.values) {
+          for (final category in QuestionCategory.values) {
+            final questions = await service.generateQuestionsFromPools(
+              subject: subject,
+              skillId: 'basic',
+              categories: [category],
+              count: 1,
+            );
+
+            // Should not throw errors
+            expect(questions, isNotNull);
+          }
+        }
+      });
+
+      test('should maintain consistency across service restarts', () async {
+        // Generate some questions and save state
+        final firstQuestions = await service.generateQuestionsFromPools(
+          subject: SubjectType.math,
+          skillId: 'basic',
+          categories: [QuestionCategory.computational],
+          count: 3,
+        );
+
+        // Create new service instance (simulating app restart)
+        final newService = QuestionPoolService();
+        await newService.initialize();
+
+        // Generate questions again - should respect previous usage
+        final secondQuestions = await newService.generateQuestionsFromPools(
+          subject: SubjectType.math,
+          skillId: 'basic',
+          categories: [QuestionCategory.computational],
+          count: 3,
+        );
+
+        expect(firstQuestions, isNotNull);
+        expect(secondQuestions, isNotNull);
+        
+        // Both batches should be valid
+        expect(firstQuestions.length, equals(3));
+        expect(secondQuestions.length, equals(3));
+      });
+    });
+  });
+}

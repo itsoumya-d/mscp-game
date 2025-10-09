@@ -1,0 +1,38 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Badge background -->
+  <circle cx="32" cy="32" r="30" fill="url(#trophyGradient)" stroke="#1565C0" stroke-width="2"/>
+  
+  <defs>
+    <linearGradient id="trophyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2196F3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1565C0;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Inner circle -->
+  <circle cx="32" cy="32" r="22" fill="white" opacity="0.9"/>
+  
+  <!-- Trophy icon -->
+  <g transform="translate(32, 32)">
+    <!-- Trophy cup -->
+    <path d="M -6 -8 L -6 2 Q -6 6 -2 6 L 2 6 Q 6 6 6 2 L 6 -8 Z" fill="#FFD700" stroke="#FFA500" stroke-width="1"/>
+    <!-- Trophy handles -->
+    <path d="M -6 -4 Q -10 -4 -10 0 Q -10 4 -6 4" fill="none" stroke="#FFD700" stroke-width="2"/>
+    <path d="M 6 -4 Q 10 -4 10 0 Q 10 4 6 4" fill="none" stroke="#FFD700" stroke-width="2"/>
+    <!-- Trophy base -->
+    <rect x="-4" y="6" width="8" height="2" fill="#FFA500"/>
+    <rect x="-6" y="8" width="12" height="3" rx="1" fill="#FF9800"/>
+    
+    <!-- Winner symbol -->
+    <text x="0" y="0" text-anchor="middle" font-family="Arial" font-size="8" font-weight="bold" fill="#FF9800">1st</text>
+    
+    <!-- Stars around trophy -->
+    <path d="M -8 -10 L -7 -8 L -5 -8 L -6.5 -6.5 L -6 -4 L -8 -5.5 L -10 -4 L -9.5 -6.5 L -11 -8 L -9 -8 Z" fill="#FFEB3B"/>
+    <path d="M 8 -10 L 9 -8 L 11 -8 L 9.5 -6.5 L 10 -4 L 8 -5.5 L 6 -4 L 6.5 -6.5 L 5 -8 L 7 -8 Z" fill="#FFEB3B"/>
+    <path d="M 0 -14 L 1 -12 L 3 -12 L 1.5 -10.5 L 2 -8 L 0 -9.5 L -2 -8 L -1.5 -10.5 L -3 -12 L -1 -12 Z" fill="#FFEB3B"/>
+  </g>
+  
+  <!-- Badge ribbon -->
+  <path d="M 20 50 L 32 45 L 44 50 L 44 60 L 38 57 L 32 60 L 26 57 L 20 60 Z" fill="#9C27B0"/>
+  <path d="M 22 52 L 32 48 L 42 52 L 42 58 L 37 56 L 32 58 L 27 56 L 22 58 Z" fill="#BA68C8"/>
+</svg>

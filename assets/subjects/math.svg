@@ -1,0 +1,23 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="32" cy="32" r="30" fill="#FF6B35" stroke="#FF4500" stroke-width="2"/>
+  <g transform="translate(16, 16)">
+    <!-- Calculator/Math symbols -->
+    <rect x="4" y="2" width="24" height="28" rx="2" fill="white" stroke="#333" stroke-width="1"/>
+    <!-- Display -->
+    <rect x="6" y="4" width="20" height="6" rx="1" fill="#f0f0f0"/>
+    <!-- Buttons -->
+    <circle cx="10" cy="16" r="2" fill="#e0e0e0"/>
+    <circle cx="16" cy="16" r="2" fill="#e0e0e0"/>
+    <circle cx="22" cy="16" r="2" fill="#e0e0e0"/>
+    <circle cx="10" cy="22" r="2" fill="#e0e0e0"/>
+    <circle cx="16" cy="22" r="2" fill="#e0e0e0"/>
+    <circle cx="22" cy="22" r="2" fill="#FF6B35"/>
+    <!-- Math symbols -->
+    <text x="10" y="18" text-anchor="middle" font-family="Arial" font-size="8" fill="#333">+</text>
+    <text x="16" y="18" text-anchor="middle" font-family="Arial" font-size="8" fill="#333">-</text>
+    <text x="22" y="18" text-anchor="middle" font-family="Arial" font-size="8" fill="#333">×</text>
+    <text x="10" y="24" text-anchor="middle" font-family="Arial" font-size="8" fill="#333">÷</text>
+    <text x="16" y="24" text-anchor="middle" font-family="Arial" font-size="8" fill="#333">=</text>
+    <text x="22" y="24" text-anchor="middle" font-family="Arial" font-size="6" fill="white">OK</text>
+  </g>
+</svg>

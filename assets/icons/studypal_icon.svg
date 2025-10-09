@@ -1,0 +1,80 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="backgroundGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="bookGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5576c;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="aiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="256" cy="256" r="240" fill="url(#backgroundGradient)" filter="url(#shadow)"/>
+  
+  <!-- Book Base -->
+  <rect x="180" y="200" width="152" height="180" rx="8" ry="8" fill="url(#bookGradient)" filter="url(#shadow)"/>
+  
+  <!-- Book Pages -->
+  <rect x="190" y="210" width="132" height="160" rx="4" ry="4" fill="#ffffff" opacity="0.95"/>
+  
+  <!-- Book Spine -->
+  <rect x="180" y="200" width="20" height="180" rx="8" ry="8" fill="#e91e63" opacity="0.8"/>
+  
+  <!-- AI Brain/Circuit Pattern -->
+  <g transform="translate(210, 230)" fill="url(#aiGradient)" opacity="0.8">
+    <!-- Central Node -->
+    <circle cx="50" cy="50" r="12" fill="url(#aiGradient)"/>
+    
+    <!-- Connection Lines -->
+    <line x1="50" y1="50" x2="20" y2="20" stroke="url(#aiGradient)" stroke-width="3" opacity="0.6"/>
+    <line x1="50" y1="50" x2="80" y2="20" stroke="url(#aiGradient)" stroke-width="3" opacity="0.6"/>
+    <line x1="50" y1="50" x2="20" y2="80" stroke="url(#aiGradient)" stroke-width="3" opacity="0.6"/>
+    <line x1="50" y1="50" x2="80" y2="80" stroke="url(#aiGradient)" stroke-width="3" opacity="0.6"/>
+    <line x1="50" y1="50" x2="50" y2="20" stroke="url(#aiGradient)" stroke-width="3" opacity="0.6"/>
+    <line x1="50" y1="50" x2="50" y2="80" stroke="url(#aiGradient)" stroke-width="3" opacity="0.6"/>
+    
+    <!-- Outer Nodes -->
+    <circle cx="20" cy="20" r="6" fill="url(#aiGradient)"/>
+    <circle cx="80" cy="20" r="6" fill="url(#aiGradient)"/>
+    <circle cx="20" cy="80" r="6" fill="url(#aiGradient)"/>
+    <circle cx="80" cy="80" r="6" fill="url(#aiGradient)"/>
+    <circle cx="50" cy="20" r="6" fill="url(#aiGradient)"/>
+    <circle cx="50" cy="80" r="6" fill="url(#aiGradient)"/>
+  </g>
+  
+  <!-- Mathematical Symbols -->
+  <g transform="translate(200, 320)" fill="#667eea" opacity="0.7" font-family="Arial, sans-serif" font-size="24" font-weight="bold">
+    <text x="0" y="0">∑</text>
+    <text x="30" y="0">π</text>
+    <text x="60" y="0">∞</text>
+    <text x="90" y="0">√</text>
+  </g>
+  
+  <!-- Sparkle Effects -->
+  <g fill="#ffffff" opacity="0.8">
+    <circle cx="150" cy="150" r="3"/>
+    <circle cx="380" cy="180" r="2"/>
+    <circle cx="120" cy="320" r="2"/>
+    <circle cx="400" cy="350" r="3"/>
+    <circle cx="350" cy="120" r="2"/>
+  </g>
+  
+  <!-- Study Progress Arc -->
+  <path d="M 100 256 A 156 156 0 0 1 412 256" stroke="url(#aiGradient)" stroke-width="8" fill="none" opacity="0.6" stroke-linecap="round"/>
+  
+  <!-- Graduation Cap -->
+  <g transform="translate(220, 140)">
+    <polygon points="36,20 72,10 36,0 0,10" fill="#2c3e50" filter="url(#shadow)"/>
+    <rect x="34" y="20" width="4" height="25" fill="#2c3e50"/>
+    <circle cx="38" cy="47" r="3" fill="#e74c3c"/>
+  </g>
+</svg>

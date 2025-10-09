@@ -1,0 +1,461 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../lib/core/models/subject.dart';
+import '../../lib/core/models/question_pool.dart';
+import '../../lib/core/services/video_improvement_service.dart';
+
+void main() {
+  group('VideoImprovementService Tests', () {
+    late VideoImprovementService service;
+
+    setUp(() async {
+      SharedPreferences.setMockInitialValues({});
+      service = VideoImprovementService();
+      await service.initialize();
+    });
+
+    group('Initialization Tests', () {
+      test('should initialize with default video library', () async {
+        expect(service.videoLibrary, isNotNull);
+        expect(service.videoLibrary.videos, isNotEmpty);
+      });
+
+      test('should load video library for all subjects', () async {
+        final subjects = SubjectType.values;
+        for (final subject in subjects) {
+          final videos = service.videoLibrary.getVideosForSubject(subject);
+          expect(videos, isNotEmpty, 
+              reason: 'Should have videos for ${subject.name}');
+        }
+      });
+
+      test('should have videos for all question categories', () async {
+        final categories = QuestionCategory.values;
+        for (final category in categories) {
+          final videos = service.videoLibrary.getVideosForCategory(category);
+          expect(videos, isNotEmpty, 
+              reason: 'Should have videos for ${category.name}');
+        }
+      });
+    });
+
+    group('Recommendation Tests', () {
+      test('should recommend videos for poor performance', () async {
+        final recommendations = await service.getRecommendationsForPerformance(
+          subject: SubjectType.math,
+          skillId: 'algebra',
+          category: QuestionCategory.analytical,
+          accuracy: 0.3, // Poor performance
+          difficulty: 2.0,
+          averageResponseTime: const Duration(seconds: 45),
+        );
+
+        expect(recommendations, isNotEmpty);
+        expect(recommendations.first.priority, 
+            isIn([VideoPriority.high, VideoPriority.critical]));
+        expect(recommendations.first.reason, contains('low accuracy'));
+      });
+
+      test('should recommend fewer videos for good performance', () async {
+        final poorRecommendations = await service.getRecommendationsForPerformance(
+          subject: SubjectType.physics,
+          skillId: 'mechanics',
+          category: QuestionCategory.computational,
+          accuracy: 0.3,
+          difficulty: 2.0,
+          averageResponseTime: const Duration(seconds: 30),
+        );
+
+        final goodRecommendations = await service.getRecommendationsForPerformance(
+          subject: SubjectType.physics,
+          skillId: 'mechanics',
+          category: QuestionCategory.computational,
+          accuracy: 0.9,
+          difficulty: 2.0,
+          averageResponseTime: const Duration(seconds: 10),
+        );
+
+        expect(poorRecommendations.length, greaterThan(goodRecommendations.length),
+            reason: 'Poor performance should generate more recommendations');
+      });
+
+      test('should prioritize videos based on performance gaps', () async {
+        final recommendations = await service.getRecommendationsForPerformance(
+          subject: SubjectType.chemistry,
+          skillId: 'organic_chemistry',
+          category: QuestionCategory.conceptual,
+          accuracy: 0.2, // Very poor
+          difficulty: 3.0,
+          averageResponseTime: const Duration(seconds: 60),
+        );
+
+        expect(recommendations, isNotEmpty);
+        expect(recommendations.first.priority, VideoPriority.critical);
+        expect(recommendations.any((r) => r.video.type == VideoType.conceptual), true,
+            reason: 'Should include conceptual videos for conceptual category');
+      });
+
+      test('should recommend skill-specific videos', () async {
+        final recommendations = await service.getRecommendationsForPerformance(
+          subject: SubjectType.biology,
+          skillId: 'cell_biology',
+          category: QuestionCategory.factual,
+          accuracy: 0.5,
+          difficulty: 2.0,
+          averageResponseTime: const Duration(seconds: 20),
+        );
+
+        expect(recommendations, isNotEmpty);
+        expect(recommendations.any((r) => 
+            r.video.skillIds.contains('cell_biology') || 
+            r.video.title.toLowerCase().contains('cell')), true,
+            reason: 'Should include skill-specific videos');
+      });
+    });
+
+    group('Watch History Tests', () {
+      test('should record watch history', () async {
+        final video = service.videoLibrary.videos.first;
+        
+        await service.recordVideoWatch(
+          videoId: video.id,
+          watchDuration: const Duration(minutes: 5),
+          completed: false,
+        );
+
+        final history = await service.getWatchHistory();
+        expect(history, isNotEmpty);
+        expect(history.first.videoId, video.id);
+        expect(history.first.watchDuration, const Duration(minutes: 5));
+        expect(history.first.completed, false);
+      });
+
+      test('should track completion status', () async {
+        final video = service.videoLibrary.videos.first;
+        
+        await service.recordVideoWatch(
+          videoId: video.id,
+          watchDuration: video.duration,
+          completed: true,
+        );
+
+        final history = await service.getWatchHistory();
+        expect(history.first.completed, true);
+      });
+
+      test('should update existing watch records', () async {
+        final video = service.videoLibrary.videos.first;
+        
+        // First watch (partial)
+        await service.recordVideoWatch(
+          videoId: video.id,
+          watchDuration: const Duration(minutes: 2),
+          completed: false,
+        );
+
+        // Second watch (complete)
+        await service.recordVideoWatch(
+          videoId: video.id,
+          watchDuration: video.duration,
+          completed: true,
+        );
+
+        final history = await service.getWatchHistory();
+        final videoRecord = history.firstWhere((r) => r.videoId == video.id);
+        
+        expect(videoRecord.completed, true);
+        expect(videoRecord.watchDuration, video.duration);
+        expect(videoRecord.watchCount, 2);
+      });
+    });
+
+    group('Analytics Tests', () {
+      test('should track engagement analytics', () async {
+        final video = service.videoLibrary.videos.first;
+        
+        await service.recordVideoWatch(
+          videoId: video.id,
+          watchDuration: const Duration(minutes: 8),
+          completed: true,
+        );
+
+        final analytics = await service.getEngagementAnalytics();
+        expect(analytics, isNotNull);
+        expect(analytics.totalWatchTime, const Duration(minutes: 8));
+        expect(analytics.videosWatched, 1);
+        expect(analytics.completionRate, 1.0);
+      });
+
+      test('should calculate subject-specific analytics', () async {
+        final mathVideos = service.videoLibrary.getVideosForSubject(SubjectType.math);
+        final physicsVideos = service.videoLibrary.getVideosForSubject(SubjectType.physics);
+        
+        // Watch math videos
+        for (int i = 0; i < 2; i++) {
+          await service.recordVideoWatch(
+            videoId: mathVideos[i].id,
+            watchDuration: mathVideos[i].duration,
+            completed: true,
+          );
+        }
+
+        // Watch physics video (partial)
+        await service.recordVideoWatch(
+          videoId: physicsVideos.first.id,
+          watchDuration: const Duration(minutes: 3),
+          completed: false,
+        );
+
+        final analytics = await service.getEngagementAnalytics();
+        expect(analytics.subjectBreakdown, contains(SubjectType.math));
+        expect(analytics.subjectBreakdown, contains(SubjectType.physics));
+        expect(analytics.subjectBreakdown[SubjectType.math]!.completionRate, 1.0);
+        expect(analytics.subjectBreakdown[SubjectType.physics]!.completionRate, 0.0);
+      });
+
+      test('should track category-specific engagement', () async {
+        final conceptualVideos = service.videoLibrary.getVideosForCategory(QuestionCategory.conceptual);
+        final practicalVideos = service.videoLibrary.getVideosForCategory(QuestionCategory.practical);
+        
+        // Watch conceptual videos
+        await service.recordVideoWatch(
+          videoId: conceptualVideos.first.id,
+          watchDuration: conceptualVideos.first.duration,
+          completed: true,
+        );
+
+        // Watch practical video (partial)
+        await service.recordVideoWatch(
+          videoId: practicalVideos.first.id,
+          watchDuration: const Duration(minutes: 2),
+          completed: false,
+        );
+
+        final analytics = await service.getEngagementAnalytics();
+        expect(analytics.categoryBreakdown, contains(QuestionCategory.conceptual));
+        expect(analytics.categoryBreakdown, contains(QuestionCategory.practical));
+      });
+    });
+
+    group('Recommendation Filtering Tests', () {
+      test('should not recommend already watched videos', () async {
+        final video = service.videoLibrary.videos.first;
+        
+        // Watch a video
+        await service.recordVideoWatch(
+          videoId: video.id,
+          watchDuration: video.duration,
+          completed: true,
+        );
+
+        final recommendations = await service.getRecommendationsForPerformance(
+          subject: video.subject,
+          skillId: video.skillIds.first,
+          category: video.categories.first,
+          accuracy: 0.3, // Poor performance to trigger recommendations
+          difficulty: 2.0,
+          averageResponseTime: const Duration(seconds: 30),
+        );
+
+        expect(recommendations.any((r) => r.video.id == video.id), false,
+            reason: 'Should not recommend already completed videos');
+      });
+
+      test('should recommend partially watched videos with lower priority', () async {
+        final video = service.videoLibrary.videos.first;
+        
+        // Partially watch a video
+        await service.recordVideoWatch(
+          videoId: video.id,
+          watchDuration: const Duration(minutes: 2),
+          completed: false,
+        );
+
+        final recommendations = await service.getRecommendationsForPerformance(
+          subject: video.subject,
+          skillId: video.skillIds.first,
+          category: video.categories.first,
+          accuracy: 0.3,
+          difficulty: 2.0,
+          averageResponseTime: const Duration(seconds: 30),
+        );
+
+        final partialVideoRec = recommendations.where((r) => r.video.id == video.id).firstOrNull;
+        if (partialVideoRec != null) {
+          expect(partialVideoRec.priority, 
+              isIn([VideoPriority.low, VideoPriority.medium]),
+              reason: 'Partially watched videos should have lower priority');
+        }
+      });
+    });
+
+    group('Video Library Tests', () {
+      test('should filter videos by difficulty range', () async {
+        final easyVideos = service.videoLibrary.getVideosForDifficultyRange(1.0, 2.0);
+        final hardVideos = service.videoLibrary.getVideosForDifficultyRange(4.0, 5.0);
+
+        expect(easyVideos, isNotEmpty);
+        expect(hardVideos, isNotEmpty);
+        
+        for (final video in easyVideos) {
+          expect(video.targetDifficulty, greaterThanOrEqualTo(1.0));
+          expect(video.targetDifficulty, lessThanOrEqualTo(2.0));
+        }
+
+        for (final video in hardVideos) {
+          expect(video.targetDifficulty, greaterThanOrEqualTo(4.0));
+          expect(video.targetDifficulty, lessThanOrEqualTo(5.0));
+        }
+      });
+
+      test('should search videos by keywords', () async {
+        final searchResults = service.videoLibrary.searchVideos('algebra');
+        expect(searchResults, isNotEmpty);
+        
+        for (final video in searchResults) {
+          final containsKeyword = video.title.toLowerCase().contains('algebra') ||
+                                video.description.toLowerCase().contains('algebra') ||
+                                video.skillIds.any((skill) => skill.toLowerCase().contains('algebra'));
+          expect(containsKeyword, true);
+        }
+      });
+
+      test('should get videos by multiple criteria', () async {
+        final videos = service.videoLibrary.getVideos(
+          subject: SubjectType.math,
+          category: QuestionCategory.computational,
+          type: VideoType.tutorial,
+          minDifficulty: 2.0,
+          maxDifficulty: 4.0,
+        );
+
+        expect(videos, isNotEmpty);
+        for (final video in videos) {
+          expect(video.subject, SubjectType.math);
+          expect(video.categories, contains(QuestionCategory.computational));
+          expect(video.type, VideoType.tutorial);
+          expect(video.targetDifficulty, greaterThanOrEqualTo(2.0));
+          expect(video.targetDifficulty, lessThanOrEqualTo(4.0));
+        }
+      });
+    });
+
+    group('Persistence Tests', () {
+      test('should persist and load watch history', () async {
+        final video = service.videoLibrary.videos.first;
+        
+        await service.recordVideoWatch(
+          videoId: video.id,
+          watchDuration: const Duration(minutes: 5),
+          completed: true,
+        );
+
+        // Create new service instance
+        final newService = VideoImprovementService();
+        await newService.initialize();
+
+        final history = await newService.getWatchHistory();
+        expect(history, isNotEmpty);
+        expect(history.any((r) => r.videoId == video.id), true);
+      });
+
+      test('should persist engagement analytics', () async {
+        final video = service.videoLibrary.videos.first;
+        
+        await service.recordVideoWatch(
+          videoId: video.id,
+          watchDuration: video.duration,
+          completed: true,
+        );
+
+        final originalAnalytics = await service.getEngagementAnalytics();
+
+        // Create new service instance
+        final newService = VideoImprovementService();
+        await newService.initialize();
+
+        final loadedAnalytics = await newService.getEngagementAnalytics();
+        expect(loadedAnalytics.totalWatchTime, originalAnalytics.totalWatchTime);
+        expect(loadedAnalytics.videosWatched, originalAnalytics.videosWatched);
+      });
+    });
+
+    group('Performance Tests', () {
+      test('should generate recommendations efficiently', () async {
+        final stopwatch = Stopwatch()..start();
+
+        final recommendations = await service.getRecommendationsForPerformance(
+          subject: SubjectType.math,
+          skillId: 'calculus',
+          category: QuestionCategory.analytical,
+          accuracy: 0.4,
+          difficulty: 3.0,
+          averageResponseTime: const Duration(seconds: 30),
+        );
+
+        stopwatch.stop();
+
+        expect(recommendations, isNotEmpty);
+        expect(stopwatch.elapsedMilliseconds, lessThan(200),
+            reason: 'Video recommendations should be generated quickly');
+      });
+
+      test('should handle large watch history efficiently', () async {
+        // Record many watch sessions
+        final videos = service.videoLibrary.videos.take(50);
+        for (final video in videos) {
+          await service.recordVideoWatch(
+            videoId: video.id,
+            watchDuration: const Duration(minutes: 3),
+            completed: false,
+          );
+        }
+
+        final stopwatch = Stopwatch()..start();
+        final analytics = await service.getEngagementAnalytics();
+        stopwatch.stop();
+
+        expect(analytics, isNotNull);
+        expect(stopwatch.elapsedMilliseconds, lessThan(300),
+            reason: 'Analytics calculation should be efficient with large history');
+      });
+    });
+
+    group('Edge Cases Tests', () {
+      test('should handle invalid video IDs gracefully', () async {
+        expect(() async => await service.recordVideoWatch(
+          videoId: 'invalid_id',
+          watchDuration: const Duration(minutes: 5),
+          completed: true,
+        ), throwsA(isA<ArgumentError>()));
+      });
+
+      test('should handle zero watch duration', () async {
+        final video = service.videoLibrary.videos.first;
+        
+        await service.recordVideoWatch(
+          videoId: video.id,
+          watchDuration: Duration.zero,
+          completed: false,
+        );
+
+        final history = await service.getWatchHistory();
+        expect(history.any((r) => r.videoId == video.id), true);
+      });
+
+      test('should handle watch duration longer than video duration', () async {
+        final video = service.videoLibrary.videos.first;
+        
+        await service.recordVideoWatch(
+          videoId: video.id,
+          watchDuration: video.duration + const Duration(minutes: 10),
+          completed: true,
+        );
+
+        final history = await service.getWatchHistory();
+        final record = history.firstWhere((r) => r.videoId == video.id);
+        expect(record.watchDuration, lessThanOrEqualTo(video.duration + const Duration(minutes: 10)));
+      });
+    });
+  });
+}

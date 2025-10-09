@@ -1,0 +1,33 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="32" cy="32" r="30" fill="#9C27B0" stroke="#6A1B9A" stroke-width="2"/>
+  <g transform="translate(32, 32)">
+    <!-- Molecular structure -->
+    <!-- Central atom -->
+    <circle cx="0" cy="0" r="4" fill="#FF5722"/>
+    <!-- Surrounding atoms -->
+    <circle cx="-12" cy="-8" r="3" fill="#4CAF50"/>
+    <circle cx="12" cy="-8" r="3" fill="#2196F3"/>
+    <circle cx="-12" cy="8" r="3" fill="#FFEB3B"/>
+    <circle cx="12" cy="8" r="3" fill="#FF9800"/>
+    <circle cx="0" cy="-14" r="2.5" fill="#E91E63"/>
+    <circle cx="0" cy="14" r="2.5" fill="#00BCD4"/>
+    
+    <!-- Bonds -->
+    <line x1="0" y1="0" x2="-12" y2="-8" stroke="white" stroke-width="2"/>
+    <line x1="0" y1="0" x2="12" y2="-8" stroke="white" stroke-width="2"/>
+    <line x1="0" y1="0" x2="-12" y2="8" stroke="white" stroke-width="2"/>
+    <line x1="0" y1="0" x2="12" y2="8" stroke="white" stroke-width="2"/>
+    <line x1="0" y1="0" x2="0" y2="-14" stroke="white" stroke-width="2"/>
+    <line x1="0" y1="0" x2="0" y2="14" stroke="white" stroke-width="2"/>
+    
+    <!-- Double bond indicators -->
+    <line x1="-1" y1="-1" x2="-11" y2="-7" stroke="white" stroke-width="1" opacity="0.7"/>
+    <line x1="1" y1="-1" x2="11" y2="-7" stroke="white" stroke-width="1" opacity="0.7"/>
+    
+    <!-- Electron clouds -->
+    <ellipse cx="-6" cy="-4" rx="3" ry="2" fill="white" opacity="0.2"/>
+    <ellipse cx="6" cy="-4" rx="3" ry="2" fill="white" opacity="0.2"/>
+    <ellipse cx="-6" cy="4" rx="3" ry="2" fill="white" opacity="0.2"/>
+    <ellipse cx="6" cy="4" rx="3" ry="2" fill="white" opacity="0.2"/>
+  </g>
+</svg>
