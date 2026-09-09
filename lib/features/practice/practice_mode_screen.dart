@@ -10,6 +10,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/models/question.dart';
+import '../../core/models/subject.dart';
 import '../../core/services/tutorial_service.dart';
 import '../../shared/widgets/tutorial_overlay.dart';
 import '../../core/models/tutorial_content.dart';
@@ -134,82 +135,92 @@ class _PracticeModeScreenState extends ConsumerState<PracticeModeScreen> {
       case QuestionType.multipleChoice:
         return Question(
           id: 'practice_mc',
-          text: 'What is 2 + 2?',
+          questionText: 'What is 2 + 2?',
           type: QuestionType.multipleChoice,
           options: ['3', '4', '5', '6'],
           correctAnswer: '4',
           explanation: 'Great job! 2 + 2 = 4',
           hint: 'Count on your fingers: 2... 3, 4!',
           difficulty: 1,
+          subject: SubjectType.math,
         );
       
       case QuestionType.trueFalse:
         return Question(
           id: 'practice_tf',
-          text: 'The sun rises in the east.',
+          questionText: 'The sun rises in the east.',
           type: QuestionType.trueFalse,
           options: ['True', 'False'],
           correctAnswer: 'True',
           explanation: 'Correct! The sun rises in the east every morning.',
           hint: 'Think about where you see the sun in the morning.',
           difficulty: 1,
+          subject: SubjectType.math,
         );
       
       case QuestionType.numericInput:
         return Question(
           id: 'practice_num',
-          text: 'How many fingers do you have on one hand?',
+          questionText: 'How many fingers do you have on one hand?',
           type: QuestionType.numericInput,
+          options: const [],
           correctAnswer: '5',
           explanation: 'Perfect! You have 5 fingers on each hand.',
           hint: 'Count the fingers on your hand!',
           difficulty: 1,
+          subject: SubjectType.math,
         );
       
       case QuestionType.fillInTheBlank:
         return Question(
           id: 'practice_fib',
-          text: 'The sky is ___.',
+          questionText: 'The sky is ___.',
           type: QuestionType.fillInTheBlank,
+          options: const [],
           correctAnswer: 'blue',
           explanation: 'Excellent! The sky is blue on a clear day.',
           hint: 'What color do you see when you look up on a sunny day?',
           difficulty: 1,
+          subject: SubjectType.math,
         );
       
       case QuestionType.dragDrop:
         return Question(
           id: 'practice_dd',
-          text: 'Match the animals to their sounds:',
+          questionText: 'Match the animals to their sounds:',
           type: QuestionType.dragDrop,
           options: ['LEFT:Dog|Cat|Cow', 'RIGHT:Bark|Meow|Moo'],
           correctAnswer: 'Dog:Bark,Cat:Meow,Cow:Moo',
           explanation: 'Great matching! You know your animal sounds!',
           hint: 'Think about what sound each animal makes.',
           difficulty: 1,
+          subject: SubjectType.math,
         );
       
       case QuestionType.clickableAnswer:
         return Question(
           id: 'practice_ca',
-          text: 'Select all the fruits: (You can choose more than one!)',
+          questionText: 'Select all the fruits: (You can choose more than one!)',
           type: QuestionType.clickableAnswer,
           options: ['Apple', 'Carrot', 'Banana', 'Broccoli'],
           correctAnswer: 'Apple,Banana',
           explanation: 'Perfect! Apple and Banana are fruits. Carrot and Broccoli are vegetables.',
           hint: 'Fruits are usually sweet. Vegetables are not.',
           difficulty: 1,
+          subject: SubjectType.math,
         );
       
       case QuestionType.shortAnswer:
         return Question(
           id: 'practice_sa',
-          text: 'What is your favorite color and why?',
+          questionText: 'What is your favorite color and why?',
           type: QuestionType.shortAnswer,
+          options: const [],
           correctAnswer: 'any',
           explanation: 'Great answer! There\'s no wrong answer for this question.',
           hint: 'Just write what you think! Any answer is correct.',
           difficulty: 1,
+          subject: SubjectType.math,
         );
     }
   }

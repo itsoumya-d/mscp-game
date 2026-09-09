@@ -67,6 +67,7 @@ class AIPromptTemplate {
   }) {
     final difficultyRange = _getDifficultyRange(level);
     final difficultyDescription = difficultyScaling[difficultyRange] ?? 'Standard difficulty';
+    final formulasForPrompt = <String>{...relevantFormulas, ...formulas}.toList();
     
     return '''
 Generate $questionCount ${subject.name} questions for $skillName (Level $level).
@@ -81,9 +82,9 @@ ${conceptsToTest.map((c) => '- $c').join('\n')}
 QUESTION FORMATS:
 ${questionFormats.map((f) => '- $f').join('\n')}
 
-${relevantFormulas.isNotEmpty ? '''
+${formulasForPrompt.isNotEmpty ? '''
 RELEVANT FORMULAS:
-${relevantFormulas.map((f) => '- $f').join('\n')}
+${formulasForPrompt.map((f) => '- $f').join('\n')}
 ''' : ''}
 
 ${commonMistakes.isNotEmpty ? '''

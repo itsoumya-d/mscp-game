@@ -103,7 +103,7 @@ class AppTheme {
       ),
 
       // Card Theme
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.backgroundSecondary,
         elevation: 2,
         shape: RoundedRectangleBorder(
@@ -149,7 +149,7 @@ class AppTheme {
       ),
 
       // Tab Bar Theme
-      tabBarTheme: const TabBarTheme(
+      tabBarTheme: const TabBarThemeData(
         labelColor: AppColors.primaryBlue,
         unselectedLabelColor: AppColors.textSecondary,
         labelStyle: AppTextStyles.labelLarge,
@@ -160,7 +160,7 @@ class AppTheme {
       ),
 
       // Dialog Theme
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         backgroundColor: AppColors.backgroundSecondary,
         elevation: 8,
         shape: RoundedRectangleBorder(

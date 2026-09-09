@@ -424,6 +424,7 @@ class AccessibilityService {
   /// Track feature usage
   void _trackFeatureUsage(String feature) {
     _featureUsageStats[feature] = (_featureUsageStats[feature] ?? 0) + 1;
+    _saveUsageStats();
   }
 
   /// Get current accessibility preferences

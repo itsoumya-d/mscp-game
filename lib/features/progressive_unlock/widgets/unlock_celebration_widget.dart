@@ -457,6 +457,10 @@ class CelebrationParticlePainter extends CustomPainter {
         return 15;
       case UnlockType.multipleLevels:
         return 24;
+      case UnlockType.skillMastery:
+        return 16;
+      case UnlockType.bonus:
+        return 10;
       case UnlockType.milestone:
         return 20;
     }
