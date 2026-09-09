@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sp/core/services/unified_xp_service.dart';
 import 'package:sp/core/models/subject.dart';
 
@@ -11,6 +12,7 @@ void main() {
     const userId = 'test_user';
 
     setUp(() {
+      SharedPreferences.setMockInitialValues({});
       xpService = UnifiedXPService.getInstance();
     });
 

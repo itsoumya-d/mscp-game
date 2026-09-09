@@ -45,7 +45,14 @@ class _SubjectDetailScreenState extends State<SubjectDetailScreen>
       _subject = _levelService.generateSubject(widget.subjectType);
       
       // Load progress data
-      _progressData = await _unlockService.getSubjectProgress(widget.subjectType.name);
+      final subjectProgress = _unlockService.getSubjectProgress(widget.subjectType.name);
+      final totalSkills = _subject?.totalSkills ?? 0;
+      _progressData = {
+        'completedSkills': (subjectProgress * totalSkills).round(),
+        'totalXp': 0,
+        'streakDays': 0,
+        'studyTimeHours': 0,
+      };
       
       setState(() => _isLoading = false);
     } catch (e) {
