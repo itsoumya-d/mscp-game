@@ -1,0 +1,131 @@
+{
+  "id": "legacy-math-level-4",
+  "subject": "math",
+  "level": 4,
+  "skillId": "addition",
+  "questions": [
+    {
+      "id": "legacy-question-1",
+      "type": "multipleChoice",
+      "questionText": "What is 2 + 2?",
+      "options": [
+        "3",
+        "4",
+        "5"
+      ],
+      "correctAnswer": "4",
+      "explanation": "Two pairs make four.",
+      "hint": "Count both pairs.",
+      "difficulty": 2,
+      "subject": "math"
+    },
+    {
+      "id": "legacy-question-2",
+      "type": "numericInput",
+      "questionText": "What is 2 + 2?",
+      "options": [
+        "3",
+        "4",
+        "5"
+      ],
+      "correctAnswer": "4",
+      "explanation": "Two pairs make four.",
+      "hint": "Count both pairs.",
+      "difficulty": 2,
+      "subject": "math"
+    },
+    {
+      "id": "legacy-question-3",
+      "type": "dragDrop",
+      "questionText": "What is 2 + 2?",
+      "options": [
+        "3",
+        "4",
+        "5"
+      ],
+      "correctAnswer": "4",
+      "explanation": "Two pairs make four.",
+      "hint": "Count both pairs.",
+      "difficulty": 2,
+      "subject": "math"
+    },
+    {
+      "id": "legacy-question-4",
+      "type": "trueFalse",
+      "questionText": "What is 2 + 2?",
+      "options": [
+        "3",
+        "4",
+        "5"
+      ],
+      "correctAnswer": "4",
+      "explanation": "Two pairs make four.",
+      "hint": "Count both pairs.",
+      "difficulty": 2,
+      "subject": "math"
+    },
+    {
+      "id": "legacy-question-5",
+      "type": "fillInTheBlank",
+      "questionText": "What is 2 + 2?",
+      "options": [
+        "3",
+        "4",
+        "5"
+      ],
+      "correctAnswer": "4",
+      "explanation": "Two pairs make four.",
+      "hint": "Count both pairs.",
+      "difficulty": 2,
+      "subject": "math"
+    },
+    {
+      "id": "legacy-question-6",
+      "type": "clickableAnswer",
+      "questionText": "What is 2 + 2?",
+      "options": [
+        "3",
+        "4",
+        "5"
+      ],
+      "correctAnswer": "4",
+      "explanation": "Two pairs make four.",
+      "hint": "Count both pairs.",
+      "difficulty": 2,
+      "subject": "math"
+    },
+    {
+      "id": "legacy-question-7",
+      "type": "shortAnswer",
+      "questionText": "What is 2 + 2?",
+      "options": [
+        "3",
+        "4",
+        "5"
+      ],
+      "correctAnswer": "4",
+      "explanation": "Two pairs make four.",
+      "hint": "Count both pairs.",
+      "difficulty": 2,
+      "subject": "math"
+    }
+  ],
+  "userAnswers": [
+    "4",
+    "3"
+  ],
+  "answerCorrectness": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ],
+  "currentQuestionIndex": 2,
+  "startTime": "2026-01-02T12:00:00.000Z",
+  "score": 100,
+  "isCompleted": false,
+  "endTime": null
+}
