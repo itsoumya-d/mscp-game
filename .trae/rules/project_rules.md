@@ -3,8 +3,8 @@ I need you to completely remove all AI content generation functionality from the
 ## Critical Requirements:
 
 ### 1. Remove All AI Generation Code
-- Delete all code related to Z.ai API integration (API key: 09633842a40c461bbca62f0430bbb6dd.1bxtWwAiBLBWu2hR)
-- Delete all code related to GLM 4.6 API integration (API key: GLM 4.6.1897f09c863c4c6e8ffd6bccbe2314a3.uPIOvjKpFLSaIH0N)
+- Delete all code related to Z.ai API integration (API key: [configured outside version control; never embed credentials in client code])
+- Delete all code related to GLM 4.6 API integration (API key: [configured outside version control; never embed credentials in client code])
 - Remove any dependencies, imports, or configuration related to AI content generation
 - Ensure no remnants of AI generation remain in the codebase
 
