@@ -12,9 +12,12 @@ class FirebaseService {
   factory FirebaseService() => _instance;
   FirebaseService._internal();
 
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseStorage _storage = FirebaseStorage.instance;
+  // Resolve the Firebase handles lazily so constructing this service never
+  // requires an initialized Firebase app. Tests and offline flows can build
+  // the service graph without a Firebase app; only real Firebase calls fail.
+  FirebaseFirestore get _firestore => FirebaseFirestore.instance;
+  FirebaseAuth get _auth => FirebaseAuth.instance;
+  FirebaseStorage get _storage => FirebaseStorage.instance;
   final Connectivity _connectivity = Connectivity();
 
   // User management

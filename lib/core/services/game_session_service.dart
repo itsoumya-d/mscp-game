@@ -1357,6 +1357,7 @@ class SevenQuestionGameSession extends GameSession {
     'subject': subject.name,
     'level': level,
     'skillId': skillId,
+    'categories': categories.map((c) => c.name).toList(),
     'questions': questions.map((q) => (q as Question).toJson()).toList(),
     'userAnswers': userAnswers,
     'answerCorrectness': answerCorrectness,
@@ -1373,6 +1374,10 @@ class SevenQuestionGameSession extends GameSession {
         subject: SubjectType.values.firstWhere((s) => s.name == json['subject']),
         level: json['level'] as int,
         skillId: json['skillId'] as String,
+        categories: ((json['categories'] as List?) ?? const [])
+            .map((c) =>
+                QuestionCategory.values.firstWhere((cat) => cat.name == c))
+            .toList(),
         questions: (json['questions'] as List)
             .map((q) => Question.fromJson(q as Map<String, dynamic>))
             .toList(),
@@ -1407,7 +1412,7 @@ class SevenQuestionGameSession extends GameSession {
     subject: subject ?? this.subject,
     level: level ?? this.level,
     skillId: skillId ?? this.skillId,
-    categories: categories ?? const [],
+    categories: categories ?? this.categories,
     questions: questions ?? this.questions,
     userAnswers: userAnswers ?? this.userAnswers,
     answerCorrectness: answerCorrectness ?? this.answerCorrectness,
