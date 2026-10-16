@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/subject.dart';
 import '../models/question.dart';
 import '../models/question_pool.dart';
+import 'game_session_service.dart';
 
 /// Service for managing game saves and session persistence
 class GameSaveService {
@@ -22,18 +23,27 @@ class GameSaveService {
   Future<GameSession?> loadGameSession() async {
     final prefs = await SharedPreferences.getInstance();
     final jsonString = prefs.getString(_gameSessionKey);
-    
-    if (jsonString != null) {
-      try {
-        final json = jsonDecode(jsonString);
-        return GameSession.fromJson(json);
-      } catch (e) {
-        // If loading fails, return null
+
+    if (jsonString == null) {
+      return null;
+    }
+
+    try {
+      final decoded = jsonDecode(jsonString);
+      if (decoded is! Map<String, dynamic>) {
         return null;
       }
+      // Seven-question saves carry level/answerCorrectness and need their
+      // richer subtype; anything else is a legacy base game save.
+      if (decoded.containsKey('answerCorrectness') ||
+          decoded.containsKey('level')) {
+        return SevenQuestionGameSession.fromJson(decoded);
+      }
+      return GameSession.fromJson(decoded);
+    } catch (e) {
+      // If loading fails, return null without erasing the stored save.
+      return null;
     }
-    
-    return null;
   }
 
   /// Save a completed question set
@@ -310,7 +320,7 @@ class GameSession {
     id: json['id'] as String,
     subject: SubjectType.values.firstWhere((s) => s.name == json['subject']),
     skillId: json['skillId'] as String,
-    categories: (json['categories'] as List)
+    categories: ((json['categories'] as List?) ?? const [])
         .map((c) => QuestionCategory.values.firstWhere((cat) => cat.name == c))
         .toList(),
     questions: (json['questions'] as List)
@@ -320,7 +330,7 @@ class GameSession {
     currentQuestionIndex: json['currentQuestionIndex'] as int,
     startTime: DateTime.parse(json['startTime'] as String),
     score: json['score'] as int,
-    lives: json['lives'] as int,
+    lives: json['lives'] as int? ?? 1,
   );
 
   GameSession copyWith({
